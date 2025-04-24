@@ -1,7 +1,7 @@
-param apimCSVNetNameAddressPrefix string = '10.2.0.0/16'
+param apimCSVNetNameAddressPrefix string = '10.0.0.0/16'
 
-param apimAddressPrefix string = '10.1.0.0/27'
-param privateEndpointAddressPrefix string = '10.2.0.0/27'
+param apimAddressPrefix string = '10.0.1.0/27' // Ajustado para estar dentro del rango de la red virtual
+param privateEndpointAddressPrefix string = '10.0.2.0/27'
 
 
 param location string

@@ -1,0 +1,14 @@
+{
+  "apimIdentityName": "identity-apim-apim1604-dev-eastus2-edr",
+  "apimName": "apim-apim1604-dev-eastus2-edr",
+  "apimResourceGroupName": "rg-apim-apim1604-dev-eastus2-edr",
+  "apimStarterSubscriptionKey": "8aa076fe-b452-537b-8299-d1957970e06e",
+  "appGatewayName": "appgw-apim1604-dev-eastus2-edr",
+  "keyVaultName": "kv-apim1604-dev-east-edr",
+  "networkingResourceGroupName": "rg-networking-apim1604-dev-eastus2-edr",
+  "privateEndpointSubnetid": "/subscriptions/2788f60e-85a0-4049-a4f6-5836187fd12e/resourceGroups/rg-networking-apim1604-dev-eastus2-edr/providers/Microsoft.Network/virtualNetworks/vnet-apim-cs-apim1604-dev-eastus2-edr/subnets/snet-prep-apim1604-dev-eastus2-edr",
+  "resourceSuffix": "apim1604-dev-eastus2-edr",
+  "sharedResourceGroupName": "rg-shared-apim1604-dev-eastus2-edr",
+  "vnetId": "/subscriptions/2788f60e-85a0-4049-a4f6-5836187fd12e/resourceGroups/rg-networking-apim1604-dev-eastus2-edr/providers/Microsoft.Network/virtualNetworks/vnet-apim-cs-apim1604-dev-eastus2-edr",
+  "vnetName": "vnet-apim-cs-apim1604-dev-eastus2-edr"
+}

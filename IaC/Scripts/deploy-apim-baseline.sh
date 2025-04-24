@@ -7,6 +7,7 @@ script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 if [[ -f "$script_dir/../../.env" ]]; then
 	echo "Loading .env"
 	source "$script_dir/../../.env"
+  echo "$script_dir/../../.env"
 fi
 
 if [[ ${#AZURE_LOCATION} -eq 0 ]]; then
@@ -14,6 +15,7 @@ if [[ ${#AZURE_LOCATION} -eq 0 ]]; then
   exit 6
 else
   AZURE_LOCATION="${AZURE_LOCATION%$'\r'}"
+  echo "AZURE_LOCATION='$AZURE_LOCATION'" 
 fi
 
 if [[ ${#RESOURCE_NAME_PREFIX} -eq 0 ]]; then
