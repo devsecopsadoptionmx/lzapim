@@ -25,12 +25,12 @@ param location string = deployment().location
 
 // Variables
 var resourceSuffix = '${workloadName}-${environment}-${location}-${identifier}'
-var resourceGroupName = 'rg-apim-lzedrm0416a'
+var resourceGroupName = 'RG-Servicios_DEVL_APIM'
 
 
 // Resource Names
 var apimName = 'apim-${resourceSuffix}'
-var appGatewayName = 'appgw-${resourceSuffix}'
+
 
 resource rG 'Microsoft.Resources/resourceGroups@2021-04-01' = {
   name: resourceGroupName
@@ -93,5 +93,4 @@ output vnetId string = networking.outputs.apimCSVNetId
 output vnetName string = networking.outputs.apimCSVNetName
 output privateEndpointSubnetid string = networking.outputs.privateEndpointSubnetid
 output keyVaultName string = shared.outputs.keyVaultName
-output appGatewayName string = appGatewayName
 output apimStarterSubscriptionKey string = apimModule.outputs.apimStarterSubscriptionKey
