@@ -3,7 +3,7 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "workloadName" :{
-        "value": "apm1604a"
+        "value": "sol"
     },
     "environment" :{
         "value": "dev"
