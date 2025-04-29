@@ -18,13 +18,5 @@ jobs:
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-    - name: Deploy Bicep template
-      uses: azure/cli@v1
-      with:
-        azcliversion: 2.50.0
-        inlineScript: |
-          az group create --name ${{ secrets.AZURE_RESOURCE_GROUP }} --location ${{ secrets.AZURE_LOCATION }}
-          az deployment group create \
-            --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
-            --template-file IaC/main.bicep \
-            --parameters location=${{ secrets.AZURE_LOCATION }}
+    - name: Execute deploy-apim-baseline script
+      run: bash IaC/Scripts/deploy-apim-baseline.sh
