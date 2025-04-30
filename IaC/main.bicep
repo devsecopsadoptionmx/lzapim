@@ -84,6 +84,52 @@ module apimModule 'apim/apim.bicep' = {
   }
 }
 
+// Crear zona DNS privada para apim.contoso.com
+resource privateDnsZoneApim 'Microsoft.Network/privateDnsZones@2021-05-01' = {
+  name: 'contoso.com'
+  location: 'global'
+}
+
+// Crear enlace de red virtual para apim.contoso.com
+resource vnetLinkApim 'Microsoft.Network/privateDnsZones/virtualNetworkLinks@2021-05-01' = {
+  name: 'apimVnetLink'
+  location: 'global'
+  parent: privateDnsZoneApim
+  properties: {
+    virtualNetwork: {
+      id: vnetId // ID de la VNet
+    }
+    registrationEnabled: false
+  }
+}
+
+// Crear registros DNS para apim.contoso.com
+resource dnsRecordApim 'Microsoft.Network/privateDnsZones/A@2021-05-01' = {
+  name: 'apim'
+  parent: privateDnsZoneApim
+  properties: {
+    ttl: 3600
+    aRecords: [
+      {
+        ipv4Address: apimIpAddress // Dirección IP del gateway APIM
+      }
+    ]
+  }
+}
+
+// Crear registros DNS para developer.apim.contoso.com
+resource dnsRecordDeveloper 'Microsoft.Network/privateDnsZones/A@2021-05-01' = {
+  name: 'developer.apim'
+  parent: privateDnsZoneApim
+  properties: {
+    ttl: 3600
+    aRecords: [
+      {
+        ipv4Address: apimIpAddress // Dirección IP del portal de desarrolladores
+      }
+    ]
+  }
+}
 
 output resourceSuffix string = resourceSuffix
 output resourceGroupName string = resourceGroupName

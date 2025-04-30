@@ -57,3 +57,51 @@ resource developerRecord 'Microsoft.Network/privateDnsZones/A@2020-06-01' = {
     ttl: 36000
   }
 }
+
+module dnsCustomZone '../../shared/modules/dnszone.bicep' = {
+  name: 'apimCustomDnsZoneDeploy'
+  params: {
+    vnetName: vnetName
+    networkingResourceGroupName: networkingResourceGroupName
+    domain: '${apimName}.contoso.com'
+  }
+}
+
+resource apimCustomDnsZone 'Microsoft.Network/privateDnsZones@2020-06-01' existing = {
+  name: '${apimName}.contoso.com'
+}
+
+
+resource gatewayCustomRecord 'Microsoft.Network/privateDnsZones/A@2020-06-01' = {
+  parent: apimCustomDnsZone
+  name: '@'
+  dependsOn: [
+    apim
+    dnsCustomZone
+  ]
+  properties: {
+    aRecords: [
+      {
+        ipv4Address: apim.properties.privateIPAddresses[0]
+      }
+    ]
+    ttl: 36000
+  }
+}
+
+resource developerCustomRecord 'Microsoft.Network/privateDnsZones/A@2020-06-01' = {
+  parent: apimCustomDnsZone
+  name: 'developer'
+  dependsOn: [
+    apim
+    dnsCustomZone
+  ]
+  properties: {
+    aRecords: [
+      {
+        ipv4Address: apim.properties.privateIPAddresses[0]
+      }
+    ]
+    ttl: 36000
+  }
+}
