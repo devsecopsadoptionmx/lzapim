@@ -13,12 +13,13 @@ param workloadName string
   'dr'
 ])
 param environment string
-
-
 param identifier string
-
-
 param location string = deployment().location
+param resourceGroupName string
+param apimCSVNetNameAddressPrefix string 
+param apimAddressPrefix string
+param privateEndpointAddressPrefix string
+param apimCustomDomainName       string
 
 // @description('Enable sending usage and telemetry feedback to Microsoft.')
 // param enableTelemetry bool = true
@@ -26,7 +27,7 @@ param location string = deployment().location
 
 // Variables
 var resourceSuffix = '${workloadName}-${environment}-${location}-${identifier}'
-var resourceGroupName = 'RG-Servicios_DEVL_APIM'
+
 
 
 // Resource Names
@@ -44,6 +45,9 @@ module networking './networking/networking.bicep' = {
   scope: resourceGroup(rG.name)
   params: {
     location: location
+    apimCSVNetNameAddressPrefix: apimCSVNetNameAddressPrefix
+    apimAddressPrefix: apimAddressPrefix
+    privateEndpointAddressPrefix: privateEndpointAddressPrefix
     resourceSuffix: resourceSuffix
   }
 }
@@ -71,6 +75,7 @@ module apimModule 'apim/apim.bicep' = {
   name: 'apimDeploy'
   scope: resourceGroup(rG.name)
   params: {
+    apimCustomDomainName:apimCustomDomainName
     apimName: apimName
     apimSubnetId: networking.outputs.apimSubnetid
     location: location

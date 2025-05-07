@@ -44,6 +44,42 @@ else
   random_string="${RANDOM_IDENTIFIER}"
 fi
 
+if [[ ${#VNETADDRESSPREFIX} -eq 0 ]]; then
+  echo 'ERROR: Missing environment variable VNETADDRESSPREFIX' 1>&2
+  exit 6
+else
+  VNETADDRESSPREFIX="${VNETADDRESSPREFIX%$'\r'}"
+fi
+
+if [[ ${#APIMADDRESSPREFIX} -eq 0 ]]; then
+  echo 'ERROR: Missing environment variable APIMADDRESSPREFIX' 1>&2
+  exit 6
+else
+  APIMADDRESSPREFIX="${APIMADDRESSPREFIX%$'\r'}"
+fi
+
+if [[ ${#PRIVATEENDPOINTADDRESSPREFIX} -eq 0 ]]; then
+  echo 'ERROR: Missing environment variable PRIVATEENDPOINTADDRESSPREFIX' 1>&2
+  exit 6
+else
+  PRIVATEENDPOINTADDRESSPREFIX="${PRIVATEENDPOINTADDRESSPREFIX%$'\r'}"
+fi
+
+if [[ ${#RESOURCE_GROUP_NAME} -eq 0 ]]; then
+  echo 'ERROR: Missing environment variable RESOURCE_GROUP_NAME' 1>&2
+  exit 6
+else
+  RESOURCE_GROUP_NAME="${RESOURCE_GROUP_NAME%$'\r'}"
+fi
+
+if [[ ${#APIM_CUSTOM_DOMAIN_NAME} -eq 0 ]]; then
+  echo 'ERROR: Missing environment variable APIM_CUSTOM_DOMAIN_NAME' 1>&2
+  exit 6
+else
+  APIM_CUSTOM_DOMAIN_NAME="${APIM_CUSTOM_DOMAIN_NAME%$'\r'}"
+fi
+
+
 cat << EOF > "$script_dir/../../IaC/parameters.json"
 {
   "\$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
@@ -56,7 +92,22 @@ cat << EOF > "$script_dir/../../IaC/parameters.json"
         "value": "${ENVIRONMENT_TAG}"
     },
     "identifier" :{
-        "value": "${random_string}"
+        "value": "${RANDOM_IDENTIFIER}"
+    },
+    "resourceGroupName" :{
+        "value": "${RESOURCE_GROUP_NAME}"
+    },
+    "apimCSVNetNameAddressPrefix" :{
+        "value": "${VNETADDRESSPREFIX}"
+    },
+    "apimAddressPrefix" :{
+        "value": "${APIMADDRESSPREFIX}"
+    },
+    "privateEndpointAddressPrefix" :{
+        "value": "${PRIVATEENDPOINTADDRESSPREFIX}"
+    },
+    "apimCustomDomainName" :{
+        "value": "${APIM_CUSTOM_DOMAIN_NAME}"
     }
   }
 }

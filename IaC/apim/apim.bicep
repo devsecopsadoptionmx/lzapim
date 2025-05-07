@@ -38,6 +38,9 @@ param keyVaultResourceGroupName     string
 param vnetName string
 param networkingResourceGroupName string
 param apimRG string
+param apimCustomDomainName       string
+
+
 var echoSubscriptionKey = guid('echoPrimaryKey')
 /*
  * Resources
@@ -129,6 +132,7 @@ module dnsZoneModule './modules/dnsrecords.bicep'  = {
     apimName_resource
   ]
   params: {
+    apimCustomDomainName: apimCustomDomainName
     vnetName: vnetName
     apimName: apimName
     apimRG: apimRG

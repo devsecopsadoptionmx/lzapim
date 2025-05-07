@@ -10,6 +10,21 @@
     },
     "identifier" :{
         "value": "edr"
+    },
+    "resourceGroupName" :{
+        "value": "RG-Servicios_DEVL_APIM"
+    },
+    "apimCSVNetNameAddressPrefix" :{
+        "value": "10.0.0.0/16"
+    },
+    "apimAddressPrefix" :{
+        "value": "10.0.1.0/27"
+    },
+    "privateEndpointAddressPrefix" :{
+        "value": "10.0.2.0/27"
+    },
+    "apimCustomDomainName" :{
+        "value": "apimedrm.contoso.com"
     }
   }
 }

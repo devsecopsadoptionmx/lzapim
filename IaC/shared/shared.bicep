@@ -30,7 +30,10 @@ param resourceSuffix string
 var tempKeyVaultName = take('kv-${workloadName}-${environment}-${location}', 20) // Must be between 3-24 alphanumeric characters 
 var uniqueKeyVaultName = take('${tempKeyVaultName}-${identifier}', 24)
 var keyVaultName = endsWith(uniqueKeyVaultName, '-') ? substring(uniqueKeyVaultName, 0, length(uniqueKeyVaultName) - 1) : uniqueKeyVaultName
-var privateEndpoint_keyvault_Name = 'pep-kv-${resourceSuffix}'
+
+// Asegurar que el nombre del private endpoint no termine con guion
+var safeResourceSuffix = endsWith(resourceSuffix, '-') ? substring(resourceSuffix, 0, length(resourceSuffix) - 1) : resourceSuffix
+var privateEndpoint_keyvault_Name = 'pep-kv-${safeResourceSuffix}'
 
 // Resources
 module appInsights './modules/azmon.bicep' = {

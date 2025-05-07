@@ -3,6 +3,7 @@ param vnetName                  string
 param networkingResourceGroupName string
 param apimName                  string
 param apimRG                    string
+param apimCustomDomainName       string
 
 
 resource apim 'Microsoft.ApiManagement/service@2020-12-01' existing = {
@@ -63,12 +64,12 @@ module dnsCustomZone '../../shared/modules/dnszone.bicep' = {
   params: {
     vnetName: vnetName
     networkingResourceGroupName: networkingResourceGroupName
-    domain: '${apimName}.contoso.com'
+    domain: '${apimCustomDomainName}'
   }
 }
 
 resource apimCustomDnsZone 'Microsoft.Network/privateDnsZones@2020-06-01' existing = {
-  name: '${apimName}.contoso.com'
+  name: '${apimCustomDomainName}'
 }
 
 

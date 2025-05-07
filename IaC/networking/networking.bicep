@@ -1,8 +1,6 @@
-param apimCSVNetNameAddressPrefix string = '10.0.0.0/16'
-
-param apimAddressPrefix string = '10.0.1.0/27' // Ajustado para estar dentro del rango de la red virtual
-param privateEndpointAddressPrefix string = '10.0.2.0/27'
-
+param apimCSVNetNameAddressPrefix string 
+param apimAddressPrefix string
+param privateEndpointAddressPrefix string
 
 param location string
 
@@ -15,10 +13,16 @@ var owner = 'APIM Const Set'
 var apimCSVNetName = 'vnet-apim-cs-${resourceSuffix}'
 
 var apimSubnetName = 'snet-apim-${resourceSuffix}'
-var apimSNNSG = 'nsg-apim-${resourceSuffix}'
+// Asegurar que el nombre del NSG no termine con guion
+var apimSNNSG = endsWith(resourceSuffix, '-') 
+  ? 'nsg-apim-${substring(resourceSuffix, 0, length(resourceSuffix) - 1)}' 
+  : 'nsg-apim-${resourceSuffix}'
 
 var privateEndpointSubnetName = 'snet-prep-${resourceSuffix}'
-var privateEndpointSNNSG = 'nsg-prep-${resourceSuffix}'
+// Asegurar que el nombre del NSG no termine con guion
+var privateEndpointSNNSG = endsWith(resourceSuffix, '-') 
+  ? 'nsg-prep-${substring(resourceSuffix, 0, length(resourceSuffix) - 1)}' 
+  : 'nsg-prep-${resourceSuffix}'
 
 
 // Resources - VNet - SubNets
