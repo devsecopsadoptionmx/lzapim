@@ -19,31 +19,31 @@ jobs:
       run: |
         cat > .env << EOF
         # The Azure location to deploy to
-        AZURE_LOCATION=${{ vars.AZURE_LOCATION || 'southcentralus' }}
+        AZURE_LOCATION=${{ vars.AZURE_LOCATION }}
         
         # A suffix for naming
-        RESOURCE_NAME_PREFIX=${{ vars.RESOURCE_NAME_PREFIX || 'sol' }}
+        RESOURCE_NAME_PREFIX=${{ vars.RESOURCE_NAME_PREFIX }}
         
         # A tag that will be included in the naming
-        ENVIRONMENT_TAG=${{ vars.ENVIRONMENT_TAG || 'dev' }}
+        ENVIRONMENT_TAG=${{ vars.ENVIRONMENT_TAG }}
         
         # Optional 3 character random string to ensure deployments are unique
-        RANDOM_IDENTIFIER=${{ vars.RANDOM_IDENTIFIER || 'edr' }}
+        RANDOM_IDENTIFIER=${{ vars.RANDOM_IDENTIFIER }}
         
         #Address space VNET
-        VNETADDRESSPREFIX="${{ vars.VNETADDRESSPREFIX || '10.0.0.0/16' }}"
+        VNETADDRESSPREFIX="${{ vars.VNETADDRESSPREFIX }}"
         
         #Address subset of IP APIM Subbet
-        APIMADDRESSPREFIX="${{ vars.APIMADDRESSPREFIX || '10.0.1.0/27' }}"
+        APIMADDRESSPREFIX="${{ vars.APIMADDRESSPREFIX }}"
         
         #Address subset of IP Private Endpoint
-        PRIVATEENDPOINTADDRESSPREFIX="${{ vars.PRIVATEENDPOINTADDRESSPREFIX || '10.0.2.0/27' }}"
+        PRIVATEENDPOINTADDRESSPREFIX="${{ vars.PRIVATEENDPOINTADDRESSPREFIX }}"
         
         #Resource Group Name
-        RESOURCE_GROUP_NAME=${{ vars.RESOURCE_GROUP_NAME || 'RG-Servicios_DEVL_APIM' }}
+        RESOURCE_GROUP_NAME=${{ vars.RESOURCE_GROUP_NAME }}
         
         #APIM Custom Domain Name
-        APIM_CUSTOM_DOMAIN_NAME=${{ vars.APIM_CUSTOM_DOMAIN_NAME || 'apimedrm.contoso.com' }}
+        APIM_CUSTOM_DOMAIN_NAME=${{ vars.APIM_CUSTOM_DOMAIN_NAME  }}
         EOF
         echo "Created .env file with environment variables"
         cat .env
