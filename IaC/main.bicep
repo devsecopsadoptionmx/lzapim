@@ -26,7 +26,7 @@ param apimCustomDomainName       string
 // var telemetryId = 'ab1e5729-7452-41b2-9fbb-945cc51d9cd0-${location}-apimsb-main'
 
 // Variables
-var resourceSuffix = '${workloadName}-${environment}-${location}-${identifier}'
+var resourceSuffix = '${workloadName}-${environment}-${location}'
 
 
 

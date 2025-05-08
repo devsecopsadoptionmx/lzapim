@@ -14,11 +14,47 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
+    
+    - name: Create .env file from environment variables
+      run: |
+        cat > .env << EOF
+        # The Azure location to deploy to
+        AZURE_LOCATION=${{ vars.AZURE_LOCATION || 'southcentralus' }}
+        
+        # A suffix for naming
+        RESOURCE_NAME_PREFIX=${{ vars.RESOURCE_NAME_PREFIX || 'sol' }}
+        
+        # A tag that will be included in the naming
+        ENVIRONMENT_TAG=${{ vars.ENVIRONMENT_TAG || 'dev' }}
+        
+        # Optional 3 character random string to ensure deployments are unique
+        RANDOM_IDENTIFIER=${{ vars.RANDOM_IDENTIFIER || 'edr' }}
+        
+        #Address space VNET
+        VNETADDRESSPREFIX="${{ vars.VNETADDRESSPREFIX || '10.0.0.0/16' }}"
+        
+        #Address subset of IP APIM Subbet
+        APIMADDRESSPREFIX="${{ vars.APIMADDRESSPREFIX || '10.0.1.0/27' }}"
+        
+        #Address subset of IP Private Endpoint
+        PRIVATEENDPOINTADDRESSPREFIX="${{ vars.PRIVATEENDPOINTADDRESSPREFIX || '10.0.2.0/27' }}"
+        
+        #Resource Group Name
+        RESOURCE_GROUP_NAME=${{ vars.RESOURCE_GROUP_NAME || 'RG-Servicios_DEVL_APIM' }}
+        
+        #APIM Custom Domain Name
+        APIM_CUSTOM_DOMAIN_NAME=${{ vars.APIM_CUSTOM_DOMAIN_NAME || 'apimedrm.contoso.com' }}
+        EOF
+        echo "Created .env file with environment variables"
+        cat .env
 
     - name: Login to Azure
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
-
-    - name: Execute deploy-apim-baseline script
-      run: bash IaC/Scripts/deploy-apim-baseline.sh
+        
+    # Completar con los pasos adicionales del workflow
+    - name: Deploy Azure Infrastructure
+      run: |
+        chmod +x ./IaC/Scripts/deploy-apim-baseline.sh
+        ./IaC/Scripts/deploy-apim-baseline.sh
